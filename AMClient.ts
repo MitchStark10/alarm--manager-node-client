@@ -48,17 +48,18 @@ export default class AMClient {
     retrieveAllOpenAlerts() {
         const requestBody = {
             email: this.email,
-            apiKey: this.apiKey
+            apiKey: this.apiKey,
         };
 
         return new Promise((resolve, reject) => {
-            //TODO: This URL might not be correct, double check
             fetch({
-                url: this.amHost + '/api/authenticated/retrieveAlarms',
-                method: 'GET',
+                url: this.amHost + '/api/authenticated/alarm/retrieveAlarms',
+                method: 'POST',
                 headers: REQUEST_HEADERS,
-                body: JSON.stringify(requestBody)
-            }).then(response => resolve(response)).catch(error => reject(error));
+                body: JSON.stringify(requestBody),
+            })
+                .then((response) => resolve(response))
+                .catch((error) => reject(error));
         });
     }
 
