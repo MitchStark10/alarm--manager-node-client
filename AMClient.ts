@@ -46,6 +46,12 @@ export default class AMClient {
     }
 
     //TODO: Implement basic retrieval logic for all ongoing alarms
+    retrieveAllOpenAlerts() {
+        return [];
+    }
 
     //TODO: Implement basic retrieval logic for the most recent alarm
+    retrieveMostRecentAlert() {
+        return {};
+    }
 }
