@@ -14,7 +14,6 @@ export default class AMClient {
     }
 
     //TODO: Implement the post logic for a new alert
-
     postNewAlert(alarmText: string) {
         const requestBody = {
             email: this.email,
@@ -41,17 +40,28 @@ export default class AMClient {
                         reject('Error occurred while adding alarm');
                     }
                 })
-                .catch((error) => {});
+                .catch((error) => reject(error));
         });
     }
 
     //TODO: Implement basic retrieval logic for all ongoing alarms
     retrieveAllOpenAlerts() {
-        return [];
+        const requestBody = {
+            email: this.email,
+            apiKey: this.apiKey
+        };
+
+        return new Promise((resolve, reject) => {
+            //TODO: This URL might not be correct, double check
+            fetch({
+                url: this.amHost + '/api/authenticated/retrieveAlarms',
+                method: 'GET',
+                headers: REQUEST_HEADERS,
+                body: JSON.stringify(requestBody)
+            }).then(response => resolve(response)).catch(error => reject(error));
+        });
     }
 
-    //TODO: Implement basic retrieval logic for the most recent alarm
-    retrieveMostRecentAlert() {
-        return {};
-    }
+    // TODO: Implement basic retrieval logic for the most recent alarm. This service does not
+    // yet exist.
 }
