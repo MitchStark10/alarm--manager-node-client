@@ -1,3 +1,5 @@
+import fetch, { Headers } from 'node-fetch';
+
 const REQUEST_HEADERS = new Headers();
 REQUEST_HEADERS.set('Content-Type', 'application/json');
 
@@ -13,7 +15,6 @@ export default class AMClient {
         this.apiKey = apiKey;
     }
 
-    //TODO: Implement the post logic for a new alert
     postNewAlert(alarmText: string) {
         const requestBody = {
             email: this.email,
@@ -21,13 +22,17 @@ export default class AMClient {
             alarmText,
         };
 
+        const requestOptions = {
+            method: 'POST',
+            headers: REQUEST_HEADERS,
+            body: JSON.stringify(requestBody),
+        };
+
         return new Promise((resolve, reject) => {
-            fetch({
-                url: this.amHost + '/api/authenticated/alarm/addAlarm',
-                method: 'POST',
-                headers: REQUEST_HEADERS,
-                body: JSON.stringify(requestBody),
-            })
+            fetch(
+                this.amHost + '/api/authenticated/alarm/addAlarm',
+                requestOptions,
+            )
                 .then((response) => {
                     if (response.ok) {
                         resolve('Alarm successfully added.');
@@ -51,13 +56,17 @@ export default class AMClient {
             apiKey: this.apiKey,
         };
 
+        const requestOptions = {
+            method: 'POST',
+            headers: REQUEST_HEADERS,
+            body: JSON.stringify(requestBody),
+        };
+
         return new Promise((resolve, reject) => {
-            fetch({
-                url: this.amHost + '/api/authenticated/alarm/retrieveAlarms',
-                method: 'POST',
-                headers: REQUEST_HEADERS,
-                body: JSON.stringify(requestBody),
-            })
+            fetch(
+                this.amHost + '/api/authenticated/alarm/retrieveAlarms',
+                requestOptions,
+            )
                 .then((response) => resolve(response))
                 .catch((error) => reject(error));
         });
