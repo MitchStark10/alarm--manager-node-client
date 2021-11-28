@@ -38,9 +38,8 @@ export default class AMClient {
       fetch(this.amHost + "/api/authenticated/alarm/addAlarm", requestOptions)
         .then((response) => {
           if (response.ok) {
-            resolve("Alarm successfully added.");
+            resolve({ success: true, message: "Alarm successfully added." });
           } else {
-            //TODO: Test this path
             console.error(
               "Error occurred preventing the alarm from being added:",
               response

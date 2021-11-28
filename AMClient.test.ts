@@ -17,8 +17,9 @@ describe("Test the API client", () => {
     );
     return expect(
       client.postNewAlert("Automated Test", "Jest-created alarm", true)
-    ).resolves.toContain({
+    ).resolves.toEqual({
       success: true,
+      message: "Alarm successfully added.",
     });
   });
 
