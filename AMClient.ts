@@ -15,11 +15,13 @@ export default class AMClient {
         this.apiKey = apiKey;
     }
 
-    postNewAlert(alarmText: string) {
+    postNewAlert(alarmText: string, alarmDetails: string, sendEmail: boolean) {
         const requestBody = {
             email: this.email,
             apiKey: this.apiKey,
             alarmText,
+            alarmDetails,
+            sendEmail
         };
 
         const requestOptions = {
