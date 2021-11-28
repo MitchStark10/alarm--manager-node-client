@@ -47,7 +47,10 @@ export default class AMClient {
                         reject('Error occurred while adding alarm');
                     }
                 })
-                .catch((error) => reject(error));
+                .catch((error) => {
+                    console.error('Error caught during alarm creation: ' + JSON.stringify(error));
+                    reject(error)
+                });
         });
     }
 
